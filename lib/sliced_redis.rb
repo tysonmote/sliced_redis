@@ -3,14 +3,14 @@ require "sliced_redis/version"
 class SlicedRedis
   class << self
     def set( redis, key, value )
-      redis.pipelined do
+      redis.multi do
         redis.del key
         chunked_append redis, key, value
       end
     end
 
     def setex( redis, key, expiration, value )
-      redis.pipelined do
+      redis.multi do
         redis.del key
         chunked_append redis, key, value
         redis.expire key, expiration
