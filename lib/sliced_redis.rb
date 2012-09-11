@@ -19,7 +19,7 @@ class SlicedRedis
 
     # Append value to the given key in 50kb chunks.
     def chunked_append( redis, key, value )
-      value.scan /.{1,51200}/ do |chunk|
+      value.scan( /.{1,51200}/ ) do |chunk|
         redis.append key, chunk
       end
     end
